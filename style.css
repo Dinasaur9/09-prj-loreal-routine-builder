@@ -222,6 +222,29 @@ body {
   color: var(--loreal-red);
 }
 
+.table-wrap {
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.msg table {
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 100%;
+}
+
+.msg th,
+.msg td {
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  text-align: start;
+  vertical-align: top;
+}
+
+.msg th {
+  background: var(--cream);
+}
+
 .sources {
   margin-top: 12px;
   padding-top: 10px;

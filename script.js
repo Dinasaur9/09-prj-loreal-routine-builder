@@ -235,6 +235,22 @@ function formatReply(text) {
     /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
     '<a href="$2" target="_blank" rel="noopener">$1</a>'
   );
+  // Tables: rows that start and end with "|"
+  html = html.replace(/(?:^\|.*\|[ \t]*(?:\n|$))+/gm, (block) => {
+    const rows = block
+      .trim()
+      .split("\n")
+      .filter((row) => !/^\|[\s:|-]+\|$/.test(row.trim())); // skip the |---| divider row
+    const cells = (row) => row.trim().slice(1, -1).split("|").map((c) => c.trim());
+    const [head, ...body] = rows;
+    const headHTML = cells(head).map((c) => `<th>${c}</th>`).join("");
+    const bodyHTML = body
+      .map((row) => `<tr>${cells(row).map((c) => `<td>${c}</td>`).join("")}</tr>`)
+      .join("");
+    return `<div class="table-wrap"><table><thead><tr>${headHTML}</tr></thead><tbody>${bodyHTML}</tbody></table></div>\n`;
+  });
+  // Remove horizontal rules like ---
+  html = html.replace(/^\s*(?:-{3,}|\*{3,})\s*$/gm, "");
   // Headings
   html = html.replace(/^#{1,6}\s*(.+)$/gm, "<h4>$1</h4>");
   // Bold
