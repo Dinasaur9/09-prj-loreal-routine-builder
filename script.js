@@ -260,7 +260,7 @@ function formatReply(text) {
   html = html.replace(/(<li>.*<\/li>\n?)+/g, (list) => `<ul>${list}</ul>`);
   // Line breaks
   html = html.replace(/\n{2,}/g, "<br><br>").replace(/\n/g, "<br>");
-  html = html.replace(/<br>\s*(<\/?(ul|li|h4))/g, "$1").replace(/(<\/(ul|h4)>)<br>/g, "$1");
+  html = html.replace(/(<br>\s*)+(<\/?(ul|li|h4|div))/g, "$2").replace(/(<\/(ul|h4|div)>)(<br>)+/g, "$1");
 
   return html;
 }
