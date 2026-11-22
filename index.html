@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,14 +19,20 @@
     <div class="page-wrapper">
       <!------- Header / Branding ------->
       <header class="site-header">
+        <!-- RTL toggle (LevelUp) -->
+        <button id="rtlToggle" class="rtl-toggle" type="button" aria-pressed="false">
+          <i class="fa-solid fa-language"></i> <span>RTL</span>
+        </button>
         <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
         <h1 class="site-title">Smart Routine &amp; Product Advisor</h1>
+        <p class="site-tagline">Pick your products. Get a routine made for you.</p>
       </header>
 
-      <!-- Category Filter -->
+      <!-- Category Filter + Product Search -->
       <div class="search-section">
+        <label for="categoryFilter" class="visually-hidden">Category</label>
         <select id="categoryFilter">
-          <option value="" disabled selected>Choose a Category</option>
+          <option value="all" selected>All Categories</option>
           <option value="cleanser">Cleansers</option>
           <option value="moisturizer">Moisturizers & Treatments</option>
           <option value="haircare">Haircare</option>
@@ -37,14 +43,30 @@
           <option value="suncare">Suncare</option>
           <option value="fragrance">Fragrance</option>
         </select>
+
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <label for="productSearch" class="visually-hidden">Search products</label>
+          <input
+            id="productSearch"
+            type="search"
+            placeholder="Search by name, brand, or keyword…"
+            autocomplete="off"
+          />
+        </div>
       </div>
 
       <!-- Products Grid -->
-      <div id="productsContainer" class="products-grid"></div>
+      <div id="productsContainer" class="products-grid" aria-live="polite"></div>
 
       <!-- Selected Products -->
       <div class="selected-products">
-        <h2>Selected Products</h2>
+        <div class="selected-header">
+          <h2>Selected Products <span id="selectedCount" class="count-badge">0</span></h2>
+          <button id="clearAll" class="clear-btn" type="button">
+            <i class="fa-solid fa-trash-can"></i> Clear all
+          </button>
+        </div>
         <div id="selectedProductsList"></div>
         <button id="generateRoutine" class="generate-btn">
           <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Routine
@@ -53,8 +75,15 @@
 
       <!------- Chat Area ------->
       <section class="chatbox">
-        <h2>Let's Build Your Routine</h2>
-        <div id="chatWindow" class="chat-window"></div>
+        <div class="chat-header">
+          <h2>Let's Build Your Routine</h2>
+          <!-- Web search toggle (LevelUp) -->
+          <label class="web-toggle">
+            <input type="checkbox" id="webSearchToggle" checked />
+            <span><i class="fa-solid fa-globe"></i> Web search</span>
+          </label>
+        </div>
+        <div id="chatWindow" class="chat-window" aria-live="polite"></div>
 
         <form id="chatForm" class="chat-form">
           <label for="userInput" class="visually-hidden">Message</label>
